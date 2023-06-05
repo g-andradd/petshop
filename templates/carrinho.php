@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="16x16"  href="./favicon-16.png">
   <title>PetShop</title>
-  <link rel="stylesheet" href="./css/styleca.css">
+  <link rel="stylesheet" href="css/styleca.css">
 </head>
 <body>
     <div class="wrapper">
@@ -14,7 +14,7 @@
           <span id="remove">></span>
             <h2>Cart</h2>
             <div class="products">
-              <img src="./imgs/ração.png" alt="">
+              <img src="imgs/ração.png" alt="">
               <div class="details">
                    <h3>Gravity Sucks</h3>
                    <input type="number" value="1" min="1">

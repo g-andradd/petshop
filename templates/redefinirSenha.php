@@ -1,38 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
-    <link rel="icon" type="image/png" sizes="16x16"  href="./favicon-16.png">
-  <link rel="stylesheet" href="index.css">
-  <title>Petshop</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16.png">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Petshop - Redefinir senha</title>
 </head>
+
 <body>
     <section>
         <div class="form-box">
             <div class="form-value">
-                <form action="">
-                    <h2>Cadastro</h2>
-                    <div class="inputbox">
-                        <ion-icon name="mail-outline"></ion-icon>
-                        <input type="email" required>
-                        <label for="">Email</label>
-                    </div>
-                    <div class="inputbox">
-                        <ion-icon name="mail-outline"></ion-icon>
-                        <input type="email" required>
-                        <label for="">Email Reptir</label>
-                    </div>
+                <form action="./index.html">
+                    <h2>Redefinir Senha</h2>
+
                     <div class="inputbox">
                         <ion-icon name="lock-closed-outline"></ion-icon>
                         <input type="password" required>
                         <label for="">Nova senha</label>
                     </div>
+
                     <div class="inputbox">
                         <ion-icon name="lock-closed-outline"></ion-icon>
                         <input type="password" required>
-                        <label for="">Reptir a Senha</label>
+                        <label for="">Reptir senha</label>
                     </div>
-                    <button>Cadastro concluído</button>
-                   
+
+                    <button type="submit" class="confirm">Cofirmar</button>
+                    <a href="./index.html" class="cancel">Cancelar</a>
                 </form>
             </div>
         </div>
@@ -40,4 +37,5 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
+
 </html>
