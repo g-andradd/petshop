@@ -1,6 +1,9 @@
 <?php
 
-namespace controller\ClienteController;
+namespace controller;
+
+require_once "../model/Cliente.php";
+require_once "../service/ClienteService.php";
 
 use model\Cliente;
 use service\ClienteService;
@@ -26,9 +29,10 @@ class ClienteController {
         $cliente = new Cliente($nome, $email, $senha);
 
         if ($this->clienteService->cadastrarCliente($cliente)) {
-            echo "Cadastro realizado com sucesso!";
+            header("Location: ../templates/login.php?success=true");
+            exit();
         } else {
-            echo "Erro ao cadastrar o cliente.";
+            echo '<script>alert("Ocorreu um erro ao cadastrar.");</script>';
         }
     }
 }

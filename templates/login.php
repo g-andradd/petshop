@@ -7,6 +7,11 @@
 </head>
 <body>
 <section>
+    <?php
+    if (isset($_GET['success']) && $_GET['success'] == "true") {
+        echo '<script>alert("Cadastro realizado com sucesso!");</script>';
+    }
+    ?>
     <div class="form-box">
         <form class="form-value" action="../src/login.php" method="POST">
             <h2>Login</h2>
@@ -21,12 +26,14 @@
                 <label for="senha">Senha</label>
             </div>
             <div class="forget">
-                <label for=""><input type="checkbox">Lembre-me! <a href="redefinirSenha.php">Esqueceu a
-                        Senha</a></label>
+                <label for=""><input type="checkbox">Lembre-me!</label>
             </div>
-            <button type="submit" class="confirm">Login</button>
+            <div class="forget">
+                <a href="./verificarEmail.php">Esqueceu a Senha?</a>
+            </div>
+            <button type="submit" class="confirm">Entrar</button>
             <div class="register">
-                <p><a href="./cadastroCliente.php">Cadastre-se</a></p>
+                <p>Ainda não tem uma conta? <a href="./cadastroCliente.php">Cadastre-se</a></p>
             </div>
         </form>
     </div>

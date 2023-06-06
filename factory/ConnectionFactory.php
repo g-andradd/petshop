@@ -2,6 +2,9 @@
 
 namespace factory;
 
+use PDO;
+use PDOException;
+
 class ConnectionFactory {
     private static $conexao;
 

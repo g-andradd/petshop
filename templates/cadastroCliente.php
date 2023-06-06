@@ -16,28 +16,28 @@
                 <h2>Cadastro</h2>
                 <form action="../src/cadastroCliente.php" method="POST">
                     <div class="inputbox">
-                        <input id="nome" type="nome" required>
+                        <input id="nome" name="nome" type="nome" required>
                         <ion-icon name="person-outline"></ion-icon>
                         <label for="nome">Nome</label>
                     </div>
                     <div class="inputbox">
-                        <input id="email" type="email" required>
+                        <input id="email" name="email" type="email" required>
                         <ion-icon name="mail-outline"></ion-icon>
                         <label for="email">Email</label>
                     </div>
                     <div class="inputbox">
-                        <input id="senha" type="password" required>
+                        <input id="senha" name="senha" type="password" required>
                         <ion-icon name="lock-closed-outline"></ion-icon>
                         <label for="senha">Nova Senha</label>
                     </div>
                     <div class="inputbox">
-                        <input id="confirmaSenha" type="password" required>
+                        <input id="confirmaSenha" name="confirmaSenha" type="password" required>
                         <ion-icon name="lock-closed-outline"></ion-icon>
                         <label for="confirmaSenha">Confirmar Senha</label>
                     </div>
                     <button type="submit" class="confirm">Cadastrar</button>
                     <div class="register">
-                        <p>Já é cadastrado? <a href="./index.html">Faça login</a></p>
+                        <p>Já é cadastrado? <a href="./login.php">Faça login</a></p>
                     </div>
                 </form>
             </div>

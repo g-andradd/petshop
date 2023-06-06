@@ -1,0 +1,23 @@
+{
+  "name": "gabriel/petshop",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "GabrielAlmeida",
+      "email": "gabrielandraad@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "ext-pdo": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "DAO\\": "",
+      "service\\": "",
+      "factory\\": "",
+      "model\\": "",
+      "controllers\\": ""
+    }
+  }
+}

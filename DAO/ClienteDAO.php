@@ -2,14 +2,20 @@
 
 namespace DAO;
 
+require_once "../factory/ConnectionFactory.php";
+require_once "../model/Cliente.php";
+
 use factory\ConnectionFactory;
 use model\Cliente;
+use PDO;
+use PDOException;
 
 class ClienteDAO {
 
     private $conexao;
 
-    public function __construct($conexao) {
+    public function __construct() {
+        $conexao = ConnectionFactory::getConnection();
         $this->conexao = $conexao;
     }
 
@@ -21,9 +27,12 @@ class ClienteDAO {
                 $stmt = $this->conexao->prepare($query);
             }
 
-            $stmt->bindParam(1, $cliente->getNome());
-            $stmt->bindParam(2, $cliente->getEmail());
-            $stmt->bindParam(3, $cliente->getSenha());
+            $nome = $cliente->getNome();
+            $stmt->bindParam(1, $nome);
+            $email = $cliente->getEmail();
+            $stmt->bindParam(2, $email);
+            $senha = $cliente->getSenha();
+            $stmt->bindParam(3, $senha);
 
             $stmt->execute();
 

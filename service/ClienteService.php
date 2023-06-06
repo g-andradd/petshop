@@ -1,19 +1,17 @@
 <?php
 
 namespace service;
-
-require_once "../factory/ConnectionFactory.php";
+require_once "../DAO/ClienteDAO.php";
+require_once "../model/Cliente.php";
 
 use DAO\ClienteDAO;
-use factory\ConnectionFactory;
 use model\Cliente;
 
 class ClienteService {
     private $clienteDAO;
 
     public function __construct() {
-        $conexao = ConnectionFactory::getConnection();
-        $this->clienteDAO = new ClienteDAO($conexao);
+        $this->clienteDAO = new ClienteDAO();
     }
 
     public function cadastrarCliente(Cliente $cliente) {
