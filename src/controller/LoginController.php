@@ -1,11 +1,15 @@
 <?php
 
-require_once "../service/ClienteService.php";
+namespace App\Controller;
 
-use service\ClienteService;
+use App\Service\ClienteService;
 
-class LoginController {
-    public function verificarLogin() {
+require_once __DIR__ . '/../service/ClienteService.php';
+
+class LoginController
+{
+    public function verificarLogin()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
             $senha = $_POST['senha'];
@@ -14,7 +18,7 @@ class LoginController {
 
             $clienteService->verificarLogin($email, $senha);
         } else {
-            header("Location: login.php");
+            header("Location: /petshop/login");
             exit();
         }
     }

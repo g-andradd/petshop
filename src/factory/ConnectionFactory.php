@@ -1,6 +1,6 @@
 <?php
 
-namespace factory;
+namespace App\Factory;
 
 use PDO;
 use PDOException;

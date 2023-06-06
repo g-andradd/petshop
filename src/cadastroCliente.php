@@ -1,8 +1,8 @@
 <?php
 
-require_once "../controllers/ClienteController.php";
+require_once "./src/controller/ClienteController.php";
 
-use controller\ClienteController;
+use App\Controller\ClienteController;
 
 $clienteController = new ClienteController();
 if ($_SERVER["REQUEST_METHOD"] === "POST") {

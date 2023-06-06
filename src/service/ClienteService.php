@@ -1,11 +1,13 @@
 <?php
 
-namespace service;
-require_once "../DAO/ClienteDAO.php";
-require_once "../model/Cliente.php";
+namespace App\Service;
 
-use DAO\ClienteDAO;
-use model\Cliente;
+use App\DAO\ClienteDAO;
+use App\Model\Cliente;
+
+
+require_once __DIR__ . '/../DAO/ClienteDAO.php';
+require_once __DIR__ . '/../model/Cliente.php';
 
 class ClienteService {
     private $clienteDAO;

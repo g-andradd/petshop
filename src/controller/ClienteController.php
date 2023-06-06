@@ -1,12 +1,12 @@
 <?php
 
-namespace controller;
+namespace App\Controller;
 
-require_once "../model/Cliente.php";
-require_once "../service/ClienteService.php";
+require_once __DIR__ . '/../model/Cliente.php';
+require_once __DIR__ . '/../service/ClienteService.php';
 
-use model\Cliente;
-use service\ClienteService;
+use App\Model\Cliente;
+use App\Service\ClienteService;
 
 class ClienteController {
     private $clienteService;
@@ -29,7 +29,7 @@ class ClienteController {
         $cliente = new Cliente($nome, $email, $senha);
 
         if ($this->clienteService->cadastrarCliente($cliente)) {
-            header("Location: ../templates/login.php?success=true");
+            header("Location: /petshop/login?success=true");
             exit();
         } else {
             echo '<script>alert("Ocorreu um erro ao cadastrar.");</script>';

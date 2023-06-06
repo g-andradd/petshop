@@ -1,12 +1,12 @@
 <?php
 
-namespace DAO;
+namespace App\DAO;
 
-require_once "../factory/ConnectionFactory.php";
-require_once "../model/Cliente.php";
+require_once __DIR__ . '/../factory/ConnectionFactory.php';
+require_once __DIR__ . '/../model/Cliente.php';
 
-use factory\ConnectionFactory;
-use model\Cliente;
+use App\Factory\ConnectionFactory;
+use App\Model\Cliente;
 use PDO;
 use PDOException;
 
