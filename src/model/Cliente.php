@@ -1,13 +1,13 @@
 <?php
 
-namespace model;
+namespace App\Model;
 
 class Cliente {
-    private $nome;
-    private $email;
-    private $senha;
+    private string $nome;
+    private string $email;
+    private string $senha;
 
-    public function __construct($nome, $email, $senha) {
+    public function __construct(string $nome, string $email, string $senha) {
         $this->nome = $nome;
         $this->email = $email;
         $this->senha = $senha;
@@ -18,7 +18,7 @@ class Cliente {
         return $this->nome;
     }
 
-    public function setNome($nome)
+    public function setNome(string $nome)
     {
         $this->nome = $nome;
     }
@@ -28,7 +28,7 @@ class Cliente {
         return $this->email;
     }
 
-    public function setEmail($email)
+    public function setEmail(string $email)
     {
         $this->email = $email;
     }
@@ -38,7 +38,7 @@ class Cliente {
         return $this->senha;
     }
 
-    public function setSenha($senha)
+    public function setSenha(string $senha)
     {
         $this->senha = $senha;
     }

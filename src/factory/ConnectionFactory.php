@@ -1,12 +1,12 @@
 <?php
 
-namespace factory;
+namespace App\Factory;
 
 use PDO;
 use PDOException;
 
 class ConnectionFactory {
-    private static $conexao;
+    private static ?PDO $conexao;
 
     public static function getConnection() {
         if (!isset(self::$conexao)) {

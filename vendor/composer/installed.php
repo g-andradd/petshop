@@ -3,7 +3,7 @@
         'name' => 'gabriel/petshop',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '20d43ad19e0a8d559193c48530648326bd9b3b1c',
+        'reference' => '0c751f24e9e052ffe3d2364d59cf68ac1d11715a',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'gabriel/petshop' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '20d43ad19e0a8d559193c48530648326bd9b3b1c',
+            'reference' => '0c751f24e9e052ffe3d2364d59cf68ac1d11715a',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
