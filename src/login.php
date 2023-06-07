@@ -1,6 +1,6 @@
 <?php
 
-use App\Controller\LoginController;
+use App\controller\LoginController;
 
 require_once "./controller/LoginController.php";
 

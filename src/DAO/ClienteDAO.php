@@ -10,16 +10,19 @@ use App\Model\Cliente;
 use PDO;
 use PDOException;
 
-class ClienteDAO {
+class ClienteDAO
+{
 
-    private $conexao;
+    private ?PDO $conexao;
 
-    public function __construct() {
+    public function __construct()
+    {
         $conexao = ConnectionFactory::getConnection();
         $this->conexao = $conexao;
     }
 
-    public function cadastrarCliente(Cliente $cliente) {
+    public function cadastrarCliente(Cliente $cliente): bool
+    {
         try {
             $query = "INSERT INTO clientes (nome, email, senha) VALUES (?, ?, ?)";
 
@@ -36,19 +39,16 @@ class ClienteDAO {
 
             $stmt->execute();
 
-            if ($stmt->rowCount() > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return $stmt->rowCount() > 0;
         } catch (PDOException $e) {
             echo "Erro ao cadastrar cliente: " . $e->getMessage();
             return false;
         }
     }
 
-    public function verificarLogin($email, $senha) {
 
+    public function verificarLogin($email, $senha): bool
+    {
         $conexao = ConnectionFactory::getConnection();
 
         $query = "SELECT * FROM clientes WHERE email = :email AND senha = :senha";
@@ -58,39 +58,28 @@ class ClienteDAO {
         $stmt->execute();
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($resultado) {
-            header("Location: ../templates/home.php");
-        } else {
-            header("Location: ../templates/login.php");
-        }
-        exit();
+        return $resultado !== false;
     }
 
-    public function buscarClientePorEmail($email) {
+
+
+    public function buscarClientePorEmail($email) : bool
+    {
         try {
-            // Preparar a query SQL
             $query = "SELECT * FROM clientes WHERE email = ?";
 
-            // Preparar a declaração
             $stmt = $this->conexao->prepare($query);
-
-            // Bind do parâmetro
             $stmt->bindParam(1, $email);
-
-            // Executar a declaração
             $stmt->execute();
 
-            // Verificar se o cliente foi encontrado
             if ($stmt->rowCount() > 0) {
-                // Retornar os dados do cliente como um objeto
                 return $stmt->fetch(PDO::FETCH_OBJ);
             } else {
-                return null; // Cliente não encontrado
+                return false;
             }
         } catch (PDOException $e) {
-            // Tratar erros
             echo "Erro ao buscar cliente por email: " . $e->getMessage();
-            return null;
+            return false;
         }
     }
 }

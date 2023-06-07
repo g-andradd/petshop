@@ -8,7 +8,7 @@ require_once __DIR__ . '/../service/ClienteService.php';
 
 class LoginController
 {
-    public function verificarLogin()
+    public function verificarLogin() : void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
@@ -16,10 +16,18 @@ class LoginController
 
             $clienteService = new ClienteService();
 
-            $clienteService->verificarLogin($email, $senha);
+            $loginValido = $clienteService->verificarLogin($email, $senha);
+
+            if ($loginValido) {
+                header("Location: /petshop/produtos");
+            } else {
+                header("Location: /petshop/login");
+            }
+            exit();
         } else {
             header("Location: /petshop/login");
             exit();
         }
     }
+
 }
