@@ -18,15 +18,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav nav-underline ml-auto">
+            <ul class="navbar-nav nav-underline ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Produtos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="cadastro_produto">Cadastrar Produtos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Login.html">Sair</a>
+                    <a class="nav-link" href="produtos">Voltar</a>
                 </li>
             </ul>
         </div>

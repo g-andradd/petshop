@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Service\ClienteService;
 
-require_once __DIR__ . '/../service/ClienteService.php';
+require_once __DIR__ . '/../Service/ClienteService.php';
 
 class LoginController
 {

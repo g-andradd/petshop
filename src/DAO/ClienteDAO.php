@@ -2,8 +2,8 @@
 
 namespace App\DAO;
 
-require_once __DIR__ . '/../factory/ConnectionFactory.php';
-require_once __DIR__ . '/../model/Cliente.php';
+require_once __DIR__ . '/../Factory/ConnectionFactory.php';
+require_once __DIR__ . '/../Model/Cliente.php';
 
 use App\Factory\ConnectionFactory;
 use App\Model\Cliente;

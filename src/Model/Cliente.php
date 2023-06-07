@@ -3,6 +3,8 @@
 namespace App\Model;
 
 class Cliente {
+
+    private int $id;
     private string $nome;
     private string $email;
     private string $senha;
@@ -13,6 +15,15 @@ class Cliente {
         $this->senha = $senha;
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
     public function getNome()
     {
         return $this->nome;

@@ -7,7 +7,7 @@ use App\Model\Cliente;
 
 
 require_once __DIR__ . '/../DAO/ClienteDAO.php';
-require_once __DIR__ . '/../model/Cliente.php';
+require_once __DIR__ . '/../Model/Cliente.php';
 
 class ClienteService
 {
