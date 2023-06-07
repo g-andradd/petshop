@@ -7,7 +7,8 @@ $routes = array(
     'cadastro' => 'cadastroCliente.html',
     'redefinir_senha' => 'redefinirSenha.html',
     'verificar_email' => 'verificarEmail.html',
-    'produtos' => 'produtos.php'
+    'produtos' => 'produtos.php',
+    'cadastro_produto' => 'cadastroProduto.php'
 );
 
 $uri = $_SERVER['REQUEST_URI'];
