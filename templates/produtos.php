@@ -53,8 +53,47 @@ if (isset($_GET['success']) && $_GET['success'] == "true") {
     </div>
 </nav>
 
+<main class="container py-5">
+    <h1 class="text-center mb-5">Lista de Produtos</h1>
+    <section class="row Products">
+        <?php
+        $produtoController = new ProdutoController();
+        $produtos = $produtoController->buscarProdutos();
+        ?>
+        <?php if (empty($produtos)): ?>
+            <h3>Não há produtos cadastrados</h3>
+        <?php else: ?>
+            <?php foreach ($produtos as $produto): ?>
+                <div class="col-md-4 mb-4">
+                    <article class="card">
+                        <div class="img"><img src="templates/imgs/<?= $produto->getImagem(); ?>"
+                                              alt="<?= $produto->getImagem(); ?>"></div>
+                        <div class="desc"><?= $produto->getTipo(); ?></div>
+                        <div class="title"><?= $produto->getNome(); ?></div>
+                        <div class="subtitle"><?= $produto->getDescricao(); ?></div>
+                        <div class="box">
+                            <div class="price"><?= 'R$' . number_format($produto->getPreco(), 2, ',', '.'); ?></div>
+                            <form action="./src/adiciona_carrinho.php" method="POST">
+                                <input type="hidden" name="id" value="<?= $produto->getId(); ?>">
+                                <button class="btn" type="submit">Comprar</button>
+                            </form>
+                        </div>
+                    </article>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>© 2023 Petshop. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
 <!-- Carrinho de Compras -->
-<div class="offcanvas offcanvas-end show" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+<section class="offcanvas offcanvas-end <?php if (isset($_SESSION['mostrarCarrinho']) && $_SESSION['mostrarCarrinho']) echo 'show'; ?>"
+     data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
      id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Carrinho de Compras</h5>
@@ -121,72 +160,8 @@ if (isset($_GET['success']) && $_GET['success'] == "true") {
 
         </div>
     </div>
-</div>
+</section>
 
-
-<div class="container py-5">
-    <h1 class="text-center mb-5">Lista de Produtos</h1>
-    <div class="row Products">
-        <?php
-        $produtoController = new ProdutoController();
-        $produtos = $produtoController->buscarProdutos();
-        ?>
-        <?php if (empty($produtos)): ?>
-            <h3>Não há produtos cadastrados</h3>
-        <?php else: ?>
-            <?php foreach ($produtos as $produto): ?>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="img"><img src="templates/imgs/<?= $produto->getImagem(); ?>"
-                                              alt="<?= $produto->getImagem(); ?>"></div>
-                        <div class="desc"><?= $produto->getTipo(); ?></div>
-                        <div class="title"><?= $produto->getNome(); ?></div>
-                        <div class="subtitle"><?= $produto->getDescricao(); ?></div>
-                        <div class="box">
-                            <div class="price"><?= 'R$' . number_format($produto->getPreco(), 2, ',', '.'); ?></div>
-                            <form action="./src/adiciona_carrinho.php" method="POST">
-                                <input type="hidden" name="id" value="<?= $produto->getId(); ?>">
-                                <button class="btn" type="submit">Comprar</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
-
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <div class="img"><img src="templates/imgs/ração02.png" alt=""></div>
-                <div class="desc">Ração</div>
-                <div class="title">Pedigree para adulto</div>
-                <div class="box">
-                    <div class="price">R$109,00</div>
-                    <button class="btn">Compra</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <div class="img"><img src="templates/imgs/gato-mix.png" alt=""></div>
-                <div class="desc">Ração</div>
-                <div class="title">Sandripet</div>
-                <div class="box">
-                    <div class="price">R$15,99</div>
-                    <button class="btn">Compra</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Adicione mais cards aqui -->
-    </div>
-</div>
-
-<footer>
-    <div class="container">
-        <p>© 2023 Petshop. Todos os direitos reservados.</p>
-    </div>
-</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
