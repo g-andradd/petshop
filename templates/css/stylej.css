@@ -6,6 +6,7 @@
 
 body{
     height: 100%;
+    background-color: #f8f9fa;
 }
 
 /* Header */
@@ -17,91 +18,145 @@ body{
     display: none;
 }
 
-.navbar{
-    padding: 20px 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    background-color: #f3f4f6;
-    box-shadow: 0 0 14px rgba(0, 0, 0, 0.3);
+.navbar {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px 0;
 }
 
-.navbar .logo h1{
-    color: #424144;
-    border-bottom: 4px solid blue;
-}
-
-.navbar .menu li{
-    list-style: none;
-    display: inline-block;
-}
-
-.navbar .menu li a{
-    display: block;
-    margin-left: 20px;
-    color: #424144;
-    border-bottom: 4px solid transparent;
-    text-decoration: none;
-    font-size: 20px;
+.navbar-brand {
+    font-size: 24px;
     font-weight: bold;
+    color: #333;
 }
 
-.navbar .menu li .active{
-    border-bottom: 4px solid  blue;
+.navbar-nav {
+    align-items: center;
 }
 
-.navbar .menu li a i{
-    color:  blue;
+.nav-link {
+    font-size: 16px;
+    color: #555;
+    transition: color 0.3s ease-in-out;
 }
 
-.navbar .menu li a:hover {
-    border-bottom: 4px solid blue;
+.nav-link:hover,
+.nav-link:focus {
+    color: #333;
 }
 
-/* content */
+/* carrinho */
 
-.content{
-    background-image: url(*);
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 0 5%;
+/* Estilos personalizados para o carrinho de compras */
+
+.cart-item {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    color: #424144;
-    height: 100vh;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.content p{
-    font-size: 20px;
+.cart-item-image img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.cart-item-details {
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.cart-item-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.cart-item-desc {
+    font-size: 14px;
+    color: #777;
+}
+
+.cart-item-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 5px;
+}
+
+.cart-item-quantity {
+    margin-left: 20px;
+}
+
+.cart-item-quantity label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.cart-item-quantity input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.cart-summary {
     margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ccc;
 }
 
-.content button{
-    margin-top: 30px;
-    padding: 15px 30px;
+.cart-summary-subtotal {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.subtotal-label {
+    font-size: 16px;
+    color: #555;
+}
+
+.subtotal-value {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-left: 5px;
+}
+
+.cart-summary-actions button {
+    margin-right: 10px;
+}
+
+.btn-remove {
+    background-color: transparent;
     border: none;
-    background: #f63e4e;
-    color: white;
-    font-size: 20px;
-    border-radius: 5px;
     cursor: pointer;
 }
 
-.pheading{
-    text-align: center;
-    margin: 50px 0;
-    color: #424144;
+.btn-remove:focus,
+.btn-remove:hover {
+    color: red;
 }
 
 /* Products */
 
-.sec{
-    padding: 10px 5%;
+.card {
+    border-radius: 10px;
+    background: #f3f4f6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    border-radius: 10px 10px 0 0;
 }
 
 .Products{
@@ -135,6 +190,13 @@ body{
     padding: 0 20px;
 }
 
+.Products .card .subtitle{
+    font-weight: 600;
+    font-size: 15px;
+    color: #424144;
+    padding: 0 20px;
+}
+
 .Products .card .box{
     display: flex;
     justify-content: space-between;
@@ -143,9 +205,9 @@ body{
 }
 
 .Products .card .box .price{
-   color:  blue;
-   font-size: 20px;
-   font-weight: bold; 
+    color:  blue;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .Products .card .box .btn{
@@ -165,23 +227,15 @@ body{
 
 /* footer */
 
-footer{
-  background-color: #f3f4f6;
-  height: 10vh;
+
+footer {
+    line-height: 10vh;
+    padding: 20px 0;
+    text-align: center;
+    color: #555;
 }
 
-footer p{
-   text-align: center;
-   line-height: 10vh;
-}
-
-footer p a {
-    text-decoration: none;
-    color: blue;
-    font-weight: bold;
-}
-
-/* Resonsive */
+/* Responsive */
 
 @media (max-width: 820px){
     .menu-btn{
@@ -195,14 +249,13 @@ footer p a {
 
     .navbar .menu{
         position: fixed;
-        height: 100vh;
-        width: 100%;
+        top: 80px;
         left: -100%;
-        top: 0;
         background-color: #f3f4f6;
-        text-align: center;
-        padding-top: 80px;
-        transition: all 0.3s ease;
+        height: 100%;
+        width: 100%;
+        padding: 80px 0;
+        transition: 0.6s;
     }
 
     .navbar .menu.active{
@@ -210,12 +263,31 @@ footer p a {
     }
 
     .navbar .menu li{
-        display: flex;
-        justify-content: center;
+        margin-left: -100%;
+        transition: 0.6s;
+    }
+
+    .navbar .menu.active li{
+        margin-left: 0;
     }
 
     .navbar .menu li a{
-        margin: 10px 0;
-        font-size: 25px;
+        text-align: center;
+        font-size: 20px;
+        padding: 15px;
+        width: 100%;
+        display: table;
+        color:  #424144;
+        transition: 0.6s;
+    }
+
+    .navbar .menu li a:hover{
+        background-color: blue;
+        color: white;
+    }
+
+    .navbar .menu li .active{
+        background-color:  blue;
+        color: white;
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-use App\controller\LoginController;
+use App\Controller\LoginController;
 
-require_once "./controller/LoginController.php";
+require_once "./Controller/LoginController.php";
 
 $loginController = new LoginController();
 

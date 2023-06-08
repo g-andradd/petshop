@@ -2,8 +2,8 @@
 
 namespace App\DAO;
 
-require_once __DIR__ . '/../factory/ConnectionFactory.php';
-require_once __DIR__ . '/../model/Cliente.php';
+require_once __DIR__ . '/../Factory/ConnectionFactory.php';
+require_once __DIR__ . '/../Model/Cliente.php';
 
 use App\Factory\ConnectionFactory;
 use App\Model\Cliente;
@@ -21,7 +21,7 @@ class ClienteDAO
         $this->conexao = $conexao;
     }
 
-    public function cadastrarCliente(Cliente $cliente): bool
+    public function cadastrar(Cliente $cliente): bool
     {
         try {
             $query = "INSERT INTO clientes (nome, email, senha) VALUES (?, ?, ?)";
@@ -63,7 +63,7 @@ class ClienteDAO
 
 
 
-    public function buscarClientePorEmail($email) : bool
+    public function buscarPorEmail($email) : bool
     {
         try {
             $query = "SELECT * FROM clientes WHERE email = ?";

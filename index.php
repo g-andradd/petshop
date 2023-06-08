@@ -2,25 +2,45 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+session_start();
+
 $routes = array(
     'login' => 'login.php',
-    'cadastro' => 'cadastroCliente.html',
-    'redefinir_senha' => 'redefinirSenha.html',
-    'verificar_email' => 'verificarEmail.html',
-    'produtos' => 'produtos.php'
+    'cadastro' => 'cadastroCliente.php',
+    'redefinir_senha' => 'redefinirSenha.php',
+    'verificar_email' => 'verificarEmail.php',
+    'produtos' => 'produtos.php',
+    'cadastro_produto' => 'cadastroProduto.php'
 );
 
-$uri = $_SERVER['REQUEST_URI'];
-$uri_parts = explode('/', $uri);
-$page = $uri_parts[2] ?? 'login';
-$page = basename($page);
+$page = $_GET['page'] ?? '';
 
-$template = $routes[$page] ?? 'login.php';
+if (!isset($_SESSION['logged_in']) && ($page === 'produtos' || $page === 'cadastro_produto')) {
+    $page = 'login';
+}
+
+if (array_key_exists($page, $routes)) {
+    $template = $routes[$page];
+
+    ob_start();
+    include 'templates/' . $template;
+    $templateContent = ob_get_clean();
+
+    ?>
+
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <?php include 'templates/' . $template; ?>
+    </html>
+    <?php
+    exit();
+}
+
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<?php include 'templates/' . $template; ?>
-
+<h1>Página não encontrada</h1>
 </html>
+<?php
+exit();
+?>

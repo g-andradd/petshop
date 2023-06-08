@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-require_once __DIR__ . '/../model/Cliente.php';
-require_once __DIR__ . '/../service/ClienteService.php';
+require_once __DIR__ . '/../Model/Cliente.php';
+require_once __DIR__ . '/../Service/ClienteService.php';
 
 use App\Model\Cliente;
 use App\Service\ClienteService;

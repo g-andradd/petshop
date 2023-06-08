@@ -1,159 +1,168 @@
+<?php
+require_once "./src/Controller/ProdutoController.php";
+
+use App\Controller\ProdutoController;
+
+if (isset($_GET['success']) && $_GET['success'] == "true") {
+    echo '<script>alert("Cadastro realizado com sucesso!");</script>';
+}
+?>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="img/png" sizes="16x16"  href="./favicon-16.png">
-    <link rel="stylesheet" href="templates/css/stylej.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <title>Petshop | Home</title>
+    <link rel="icon" type="img/png" sizes="16x16" href="./favicon-16.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="templates/css/stylej.css">
 </head>
+
 <body>
 
-<nav class="navbar">
-    <div class="logo"><h1>Petshop</h1></div>
-    <ul class="menu">
-        <li><a href="" class="active">Home</a></li>
-        <li><a href="cadastroProd.php">Novo brinquedos</a></li>
-        <li><a href="Login.html">Conta</a></li>
-        <li><a href="carrinho.php"><i class="fas fa-shopping-cart"></i></a></li>
-    </ul>
-    <!-- for responsive button -->
-    <div class="menu-btn">
-        <i class="fa fa-bars"></i>
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            Petshop
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav nav-underline ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Produtos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="cadastro_produto">Cadastrar Produtos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./src/logout.php">Sair</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav nav-underline ms-auto">
+                <li class="nav-item">
+                    <button class="nav-link btn btn-light" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasScrolling"
+                            aria-controls="offcanvasScrolling">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 
-<!--<section class="content">
-    <h1>New Arrivals For Men & Women</h1>
-    <p>Get The Best Women Fashion Arrivals</p>
-    <button>Shop Now</button>
-</section>-->
+<main class="container py-5">
+    <h1 class="text-center mb-5">Lista de Produtos</h1>
+    <section class="row Products">
+        <?php
+        $produtoController = new ProdutoController();
+        $produtos = $produtoController->buscarProdutos();
+        ?>
+        <?php if (empty($produtos)): ?>
+            <h3>Não há produtos cadastrados</h3>
+        <?php else: ?>
+            <?php foreach ($produtos as $produto): ?>
+                <div class="col-md-4 mb-4">
+                    <article class="card">
+                        <div class="img"><img src="templates/imgs/<?= $produto->getImagem(); ?>"
+                                              alt="<?= $produto->getImagem(); ?>"></div>
+                        <div class="desc"><?= $produto->getTipo(); ?></div>
+                        <div class="title"><?= $produto->getNome(); ?></div>
+                        <div class="subtitle"><?= $produto->getDescricao(); ?></div>
+                        <div class="box">
+                            <div class="price"><?= 'R$' . number_format($produto->getPreco(), 2, ',', '.'); ?></div>
+                            <form action="./src/adiciona_carrinho.php" method="POST">
+                                <input type="hidden" name="id" value="<?= $produto->getId(); ?>">
+                                <button class="btn" type="submit">Comprar</button>
+                            </form>
+                        </div>
+                    </article>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </section>
+</main>
 
-<h1 class="pheading">Lista de Produtos</h1>
+<footer>
+    <div class="container">
+        <p>© 2023 Petshop. Todos os direitos reservados.</p>
+    </div>
+</footer>
 
-<section class="sec">
-    <div class="Products">
-
-        <!-- card start -->
-        <div class="card">
-            <div class="img"><img src="templates/imgs/ração.png" alt=""></div>
-            <div class="desc">Ração</div>
-            <div class="title">Pro Plan</div>
-            <div class="box">
-                <div class="price">R$80,00</div>
-                <button class="btn">Compra</button>
-            </div>
+<!-- Carrinho de Compras -->
+<section class="offcanvas offcanvas-end <?php if (isset($_SESSION['mostrarCarrinho']) && $_SESSION['mostrarCarrinho']) echo 'show'; ?>"
+     data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+     id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Carrinho de Compras</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
+    </div>
+    <div class="offcanvas-body">
+        <!-- Conteúdo do carrinho de compras -->
+        <div class="cart-items">
+            <!-- Item do carrinho -->
+            <?php
+            if (isset($_SESSION['carrinho'])) {
+                foreach ($_SESSION['carrinho'] as $indice => $produtoId) {
+                    $produtoController = new ProdutoController();
+                    $produto = $produtoController->buscarProdutoPorId($produtoId);
+                    ?>
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            <img src="templates/imgs/<?= $produto->getImagem(); ?>" alt="Imagem do produto">
+                        </div>
+                        <div class="cart-item-details">
+                            <h6 class="cart-item-title"><?= $produto->getNome(); ?></h6>
+                            <p class="cart-item-desc"><?= $produto->getDescricao(); ?></p>
+                            <div class="cart-item-price"><?= 'R$' . number_format($produto->getPreco(), 2, ',', '.'); ?></div>
+                        </div>
+                        <div class="cart-item-quantity">
+                            <label for="quantity">Quantidade:</label>
+                            <input type="number" id="quantity" value="1" min="1" max="10">
+                        </div>
+                        <form action="./src/remove_carrinho.php" method="POST" class="remove-form">
+                            <input type="hidden" name="indice" value="<?= $indice ?>">
+                            <button class="btn btn-remove" type="submit"><i class="fa-solid fa-trash"></i></button>
+                        </form>
+                    </div>
+                    <?php
+                }
+            }
+            ?>
         </div>
-        <!-- card end -->
-
-        <!-- card start -->
-        <div class="card">
-            <div class="img"><img src="templates/imgs/ração02.png" alt=""></div>
-            <div class="desc">Ração</div>
-            <div class="title">Pedigree para adulto</div>
-            <div class="box">
-                <div class="price">R$109,00</div>
-                <button class="btn">Compra</button>
+        <div class="cart-summary">
+            <div class="cart-summary-subtotal">
+                <span class="subtotal-label">Subtotal:</span>
+                <span class="subtotal-value">
+                <?php
+                $subtotal = 0.0;
+                if (isset($_SESSION['carrinho'])) {
+                    foreach ($_SESSION['carrinho'] as $produtoId) {
+                        $produtoController = new ProdutoController();
+                        $produto = $produtoController->buscarProdutoPorId($produtoId);
+                        $subtotal += $produto->getPreco();
+                    }
+                }
+                echo 'R$ ' . number_format($subtotal, 2, ',', '.');
+                ?>
+                </span>
             </div>
-        </div>
-        <!-- card end -->
-
-        <!-- card start -->
-        <div class="card">
-            <div class="img"><img src="templates/imgs/gato-mix.png" alt=""></div>
-            <div class="desc">Ração</div>
-            <div class="title">Sandripet</div>
-            <div class="box">
-                <div class="price">R$15,99</div>
-                <button class="btn">Compra</button>
+            <div class="cart-summary-actions row">
+                <form class="col-6">
+                    <button class="btn btn-primary">Finalizar Compra</button>
+                </form>
+                <form action="./src/limpar_carrinho.php" method="POST" class="col-6">
+                    <button class="btn btn-secondary" type="submit">Limpar Carrinho</button>
+                </form>
             </div>
-        </div>
-        <!-- card end -->
 
-        <!-- card start -->
-        <div class="card">
-            <div class="img"><img src="templates/imgs/briquedo01.png" alt=""></div>
-            <div class="desc">Brinquedos</div>
-            <div class="title">Grows fazenda cachorro com corda</div>
-            <div class="box">
-                <div class="price">R$5,00</div>
-                <button class="btn">Compra</button>
-            </div>
         </div>
-        <!-- card end -->
-
-        <!-- card start -->
-        <div class="card">
-            <div class="img"><img src="templates/imgs/brinquedos-pet.png" alt=""></div>
-            <div class="desc">Brinquedos</div>
-            <div class="title">Bola Cravinho mini para Cães - Cores Sortidas</div>
-            <div class="box">
-                <div class="price">R$10,00</div>
-                <button class="btn">Compra</button>
-            </div>
-        </div>
-        <!-- card end -->
-
-        <!-- card start -->
-        <div class="card">
-            <div class="img"><img src="templates/imgs/briquedo02.png" alt=""></div>
-            <div class="desc">Brinquedos</div>
-            <div class="title">Bola Maciça Colorida 50mm, Corda de 2 Nos Furacão</div>
-            <div class="box">
-                <div class="price">R$11,00</div>
-                <button class="btn">Compra</button>
-            </div>
-        </div>
-        <!-- card end -->
-
-        <!-- card start -->
-        <div class="card">
-            <div class="img"><img src="templates/imgs/roupa01.png" alt=""></div>
-            <div class="desc">Roupas</div>
-            <div class="title">Roupa Pet Duff Simpsons</div>
-            <div class="box">
-                <div class="price">R$50,00</div>
-                <button class="btn">Compra</button>
-            </div>
-        </div>
-        <!-- card end -->
-
-        <!-- card start -->
-        <div class="card">
-            <div class="img"><img src="templates/imgs/roupafla.png" alt=""></div>
-            <div class="desc">Roupas</div>
-            <div class="title">Roupa Pet Fla.mengo Camisa Para Cachorro</div>
-            <div class="box">
-                <div class="price">R$55,00</div>
-                <button class="btn">Compra</button>
-            </div>
-        </div>
-        <!-- card end -->
-
-        <!-- card start -->
-        <div class="card">
-            <div class="img"><img src="templates/imgs/naruto-fofo.png" alt=""></div>
-            <div class="desc">Roupas</div>
-            <div class="title">Roupa Pet Moletom Cachorro Akatsuki</div>
-            <div class="box">
-                <div class="price">R$25,00</div>
-                <button class="btn">Compra</button>
-            </div>
-        </div>
-        <!-- card end -->
     </div>
 </section>
 
-<footer>
-    <p>Copyrights at <a href="indexj.htm">Petshop</a></p>
-</footer>
 
-<script>
-    $(".menu-bnt").click(function(){
-        $('.navbar .menu').toggleClass("active");
-        $('.menu-btn i').toggleClass("active");
-    });
-</script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
