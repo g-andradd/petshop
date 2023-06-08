@@ -45,6 +45,7 @@
                                 <option value="Brinquedo">Brinquedo</option>
                                 <option value="Ração">Ração</option>
                                 <option value="Utilitário">Utilitário</option>
+                                <option value="Roupa">Roupa</option>
                             </select>
                         </div>
                         <div class="mb-3">
