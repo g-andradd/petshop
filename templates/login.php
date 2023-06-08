@@ -1,4 +1,8 @@
-
+<?php
+if (isset($_GET['success']) && $_GET['success'] == "true") {
+    echo '<script>alert("Cadastro realizado com sucesso!");</script>';
+}
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +12,6 @@
 </head>
 <body>
 <section>
-    <?php
-    if (isset($_GET['success']) && $_GET['success'] == "true") {
-        echo '<script>alert("Cadastro realizado com sucesso!");</script>';
-    }
-    ?>
     <div class="form-box">
         <form class="form-value" action="./src/login.php" method="POST">
             <h2>Login</h2>

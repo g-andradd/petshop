@@ -11,17 +11,30 @@ $routes = array(
     'cadastro_produto' => 'cadastroProduto.php'
 );
 
-$uri = $_SERVER['REQUEST_URI'];
-$uri_parts = explode('/', $uri);
-$page = $uri_parts[2] ?? 'login';
-$page = basename($page);
+$page = $_GET['page'] ?? '';
 
-$template = $routes[$page] ?? 'login.php';
+if (array_key_exists($page, $routes)) {
+    $template = $routes[$page];
+
+    ob_start();
+    include 'templates/' . $template;
+    $templateContent = ob_get_clean();
+
+    ?>
+
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <?php include 'templates/' . $template; ?>
+    </html>
+    <?php
+    exit();
+}
+
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<?php include 'templates/' . $template; ?>
-
+<h1>Página não encontrada</h1>
 </html>
+<?php
+exit();
+?>

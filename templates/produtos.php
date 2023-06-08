@@ -1,3 +1,8 @@
+<?php
+if (isset($_GET['success']) && $_GET['success'] == "true") {
+    echo '<script>alert("Cadastro realizado com sucesso!");</script>';
+}
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

@@ -33,7 +33,7 @@
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title text-center">Cadastro de Produto</h2>
-                    <form>
+                    <form action="./src/cadastroProduto.php" method="POST" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="imagem" class="form-label">Imagem:</label>
                             <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*" required>
@@ -58,6 +58,10 @@
                         <div class="mb-3">
                             <label for="preco" class="form-label">Preço:</label>
                             <input type="number" class="form-control" id="preco" name="preco" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="quantidade" class="form-label">Quantidade:</label>
+                            <input type="number" class="form-control" id="quantidade" name="quantidade" required>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Cadastrar</button>

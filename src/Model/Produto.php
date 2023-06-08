@@ -13,7 +13,7 @@ class Produto {
     private float $preco;
     private int $quantidade;
     private DateTime $dataCriacao;
-    private DateTime $dataAlteracao;
+    private ?DateTime $dataAlteracao;
 
     public function __construct($imagem, $tipo, $nome, $descricao, $preco, $quantidade) {
         $this->imagem = $imagem;
