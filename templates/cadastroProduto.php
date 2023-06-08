@@ -42,9 +42,9 @@
                             <label for="tipo" class="form-label">Tipo:</label>
                             <select id="tipo" class="form-select" name="tipo" required>
                                 <option value="">Selecione</option>
-                                <option value="brinquedo">Brinquedo</option>
-                                <option value="racao">Ração</option>
-                                <option value="utilitario">Utilitário</option>
+                                <option value="Brinquedo">Brinquedo</option>
+                                <option value="Ração">Ração</option>
+                                <option value="Utilitário">Utilitário</option>
                             </select>
                         </div>
                         <div class="mb-3">

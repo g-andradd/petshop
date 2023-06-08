@@ -146,6 +146,14 @@ class Produto {
     }
 
     /**
+     * @param DateTime $dataCriacao
+     */
+    public function setDataCriacao(DateTime $dataCriacao): void
+    {
+        $this->dataCriacao = $dataCriacao;
+    }
+
+    /**
      * @return DateTime
      */
     public function getDataAlteracao(): DateTime

@@ -1,4 +1,8 @@
 <?php
+require_once "./src/Controller/ProdutoController.php";
+
+use App\Controller\ProdutoController;
+
 if (isset($_GET['success']) && $_GET['success'] == "true") {
     echo '<script>alert("Cadastro realizado com sucesso!");</script>';
 }
@@ -33,13 +37,14 @@ if (isset($_GET['success']) && $_GET['success'] == "true") {
                     <a class="nav-link" href="cadastro_produto">Cadastrar Produtos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="Login.html">Sair</a>
+                    <a class="nav-link" href="./src/logout.php">Sair</a>
                 </li>
             </ul>
             <ul class="navbar-nav nav-underline ms-auto">
                 <li class="nav-item">
-                    <button class="nav-link btn btn-light" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
-                       aria-controls="offcanvasScrolling">
+                    <button class="nav-link btn btn-light" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasScrolling"
+                            aria-controls="offcanvasScrolling">
                         <i class="fas fa-shopping-cart"></i>
                     </button>
                 </li>
@@ -49,7 +54,8 @@ if (isset($_GET['success']) && $_GET['success'] == "true") {
 </nav>
 
 <!-- Carrinho de Compras -->
-<div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+<div class="offcanvas offcanvas-end show" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+     id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Carrinho de Compras</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
@@ -58,52 +64,95 @@ if (isset($_GET['success']) && $_GET['success'] == "true") {
         <!-- Conteúdo do carrinho de compras -->
         <div class="cart-items">
             <!-- Item do carrinho -->
-            <div class="cart-item">
-                <div class="cart-item-image">
-                    <img src="templates/imgs/ração.png" alt="Imagem do produto">
-                </div>
-                <div class="cart-item-details">
-                    <h6 class="cart-item-title">Pro Plan</h6>
-                    <p class="cart-item-desc">Ração</p>
-                    <div class="cart-item-price">R$ 80,00</div>
-                </div>
-                <div class="cart-item-quantity">
-                    <label for="quantity">Quantidade:</label>
-                    <input type="number" id="quantity" value="1" min="1" max="10">
-                </div>
-                <button class="btn btn-remove"><i class="fa-solid fa-trash"></i></button>
-            </div>
-            <!-- Outros itens do carrinho... -->
+            <?php
+            if (isset($_SESSION['carrinho'])) {
+                foreach ($_SESSION['carrinho'] as $indice => $produtoId) {
+                    $produtoController = new ProdutoController();
+                    $produto = $produtoController->buscarProdutoPorId($produtoId);
+                    ?>
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            <img src="templates/imgs/<?= $produto->getImagem(); ?>" alt="Imagem do produto">
+                        </div>
+                        <div class="cart-item-details">
+                            <h6 class="cart-item-title"><?= $produto->getNome(); ?></h6>
+                            <p class="cart-item-desc"><?= $produto->getDescricao(); ?></p>
+                            <div class="cart-item-price"><?= 'R$' . number_format($produto->getPreco(), 2, ',', '.'); ?></div>
+                        </div>
+                        <div class="cart-item-quantity">
+                            <label for="quantity">Quantidade:</label>
+                            <input type="number" id="quantity" value="1" min="1" max="10">
+                        </div>
+                        <form action="./src/remove_carrinho.php" method="POST" class="remove-form">
+                            <input type="hidden" name="indice" value="<?= $indice ?>">
+                            <button class="btn btn-remove" type="submit"><i class="fa-solid fa-trash"></i></button>
+                        </form>
+                    </div>
+                    <?php
+                }
+            }
+            ?>
         </div>
         <div class="cart-summary">
             <div class="cart-summary-subtotal">
                 <span class="subtotal-label">Subtotal:</span>
-                <span class="subtotal-value">R$ XX,XX</span>
+                <span class="subtotal-value">
+                <?php
+                $subtotal = 0.0;
+                if (isset($_SESSION['carrinho'])) {
+                    foreach ($_SESSION['carrinho'] as $produtoId) {
+                        $produtoController = new ProdutoController();
+                        $produto = $produtoController->buscarProdutoPorId($produtoId);
+                        $subtotal += $produto->getPreco();
+                    }
+                }
+                echo 'R$ ' . number_format($subtotal, 2, ',', '.');
+                ?>
+                </span>
             </div>
-            <div class="cart-summary-actions">
-                <button class="btn btn-primary">Finalizar Compra</button>
-                <button class="btn btn-secondary">Limpar Carrinho</button>
+            <div class="cart-summary-actions row">
+                <form class="col-6">
+                    <button class="btn btn-primary">Finalizar Compra</button>
+                </form>
+                <form action="./src/limpar_carrinho.php" method="POST" class="col-6">
+                    <button class="btn btn-secondary" type="submit">Limpar Carrinho</button>
+                </form>
             </div>
+
         </div>
     </div>
 </div>
 
 
-
 <div class="container py-5">
     <h1 class="text-center mb-5">Lista de Produtos</h1>
     <div class="row Products">
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <div class="img"><img src="templates/imgs/ração.png" alt=""></div>
-                <div class="desc">Ração</div>
-                <div class="title">Pro Plan</div>
-                <div class="box">
-                    <div class="price">R$80,00</div>
-                    <button class="btn">Compra</button>
+        <?php
+        $produtoController = new ProdutoController();
+        $produtos = $produtoController->buscarProdutos();
+        ?>
+        <?php if (empty($produtos)): ?>
+            <h3>Não há produtos cadastrados</h3>
+        <?php else: ?>
+            <?php foreach ($produtos as $produto): ?>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="img"><img src="templates/imgs/<?= $produto->getImagem(); ?>"
+                                              alt="<?= $produto->getImagem(); ?>"></div>
+                        <div class="desc"><?= $produto->getTipo(); ?></div>
+                        <div class="title"><?= $produto->getNome(); ?></div>
+                        <div class="subtitle"><?= $produto->getDescricao(); ?></div>
+                        <div class="box">
+                            <div class="price"><?= 'R$' . number_format($produto->getPreco(), 2, ',', '.'); ?></div>
+                            <form action="./src/adiciona_carrinho.php" method="POST">
+                                <input type="hidden" name="id" value="<?= $produto->getId(); ?>">
+                                <button class="btn" type="submit">Comprar</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
 
         <div class="col-md-4 mb-4">
             <div class="card">

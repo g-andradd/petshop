@@ -20,12 +20,12 @@ class ClienteService
 
     public function cadastrarCliente(Cliente $cliente) : bool
     {
-        if ($this->clienteDAO->buscarClientePorEmail($cliente->getEmail())) {
+        if ($this->clienteDAO->buscarPorEmail($cliente->getEmail())) {
             echo "Este email já está em uso.";
             return false;
         }
 
-        if (!$this->clienteDAO->cadastrarCliente($cliente)) {
+        if (!$this->clienteDAO->cadastrar($cliente)) {
             echo "Erro ao cadastrar o cliente.";
             return false;
         }

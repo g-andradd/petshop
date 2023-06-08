@@ -10,10 +10,11 @@ use App\Model\Produto;
 use Exception;
 use PDO;
 use PDOException;
+use PDOStatement;
 
 class ProdutoDAO
 {
-    private ?PDO $conexao;
+    private PDO $conexao;
 
     public function __construct()
     {
@@ -25,7 +26,7 @@ class ProdutoDAO
      * @throws Exception
      */
     // No método cadastrarProduto()
-    public function cadastrarProduto(Produto $produto): array
+    public function cadastrar(Produto $produto): array
     {
         try {
             $query = "INSERT INTO produtos (imagem, tipo, nome, descricao, preco, quantidade, data_criacao) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -63,5 +64,24 @@ class ProdutoDAO
             );
         }
     }
+
+    public function buscarTodos(): PDOStatement
+    {
+        $query = "SELECT * FROM produtos";
+        $stmt = $this->conexao->query($query);
+
+        return $stmt;
+    }
+
+    public function buscarPorId($id): PDOStatement
+    {
+        $query = "SELECT * FROM produtos WHERE id = :id";
+        $statement = $this->conexao->prepare($query);
+        $statement->bindValue(':id', $id, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement;
+    }
+
 
 }

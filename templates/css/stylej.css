@@ -194,6 +194,13 @@ body{
     padding: 0 20px;
 }
 
+.Products .card .subtitle{
+    font-weight: 600;
+    font-size: 15px;
+    color: #424144;
+    padding: 0 20px;
+}
+
 .Products .card .box{
     display: flex;
     justify-content: space-between;

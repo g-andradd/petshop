@@ -59,5 +59,18 @@ class ProdutoController
         exit();
     }
 
+    public function buscarProdutos(): array
+    {
+        $produtoService = new ProdutoService();
+        return $produtoService->buscarProdutos();
+    }
+
+    public function buscarProdutoPorId(int $id): Produto
+    {
+        $produtoService = new ProdutoService();
+        return $produtoService->buscarProdutoPorId($id);
+    }
+
+
 
 }

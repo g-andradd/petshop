@@ -1,4 +1,9 @@
 <?php
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+    header("Location: /petshop/produtos");
+    exit();
+}
+
 if (isset($_GET['success']) && $_GET['success'] == "true") {
     echo '<script>alert("Cadastro realizado com sucesso!");</script>';
 }
